@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/blep-drafts/static/css/main.4fa2c79e.css",
-    "main.js": "/blep-drafts/static/js/main.c3dd70b6.js",
+    "main.js": "/blep-drafts/static/js/main.a2fb0096.js",
     "static/js/453.ca2aa976.chunk.js": "/blep-drafts/static/js/453.ca2aa976.chunk.js",
     "index.html": "/blep-drafts/index.html",
     "main.4fa2c79e.css.map": "/blep-drafts/static/css/main.4fa2c79e.css.map",
-    "main.c3dd70b6.js.map": "/blep-drafts/static/js/main.c3dd70b6.js.map",
+    "main.a2fb0096.js.map": "/blep-drafts/static/js/main.a2fb0096.js.map",
     "453.ca2aa976.chunk.js.map": "/blep-drafts/static/js/453.ca2aa976.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4fa2c79e.css",
-    "static/js/main.c3dd70b6.js"
+    "static/js/main.a2fb0096.js"
   ]
 }
