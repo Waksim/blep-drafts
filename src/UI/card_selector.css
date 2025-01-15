@@ -22,3 +22,19 @@ div.selector-cards {
     gap: 10px;
     padding: 10px;
 }
+
+.parent {
+  padding-bottom: 33.33%;
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
+.child {
+  background: url('https://satyr.io/1200x768/400') 50% 50%/cover no-repeat #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

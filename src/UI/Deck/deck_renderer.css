@@ -22,20 +22,57 @@ div.deckrenderer-cards {
 }
 
 img.deckrenderer-characters-item {
-    aspect-ratio: 1;
-    width: 7vw;
-    object-fit: cover;
+    /*aspect-ratio: 1;*/
+    width: 10vw;
+    /*object-fit: cover;*/
 }
 
 div.deckrenderer-cards-row {
-    display: flex;
-    flex-direction: row;
+    /*display: inline-block;*/
+    /*flex-direction: row;*/
+    /*width: fit-content;*/
     width: fit-content;
     gap: 0.1vw
 }
 
 img.deckrenderer-cards-item {
-    aspect-ratio: 420/240;
-    width: 7vw;
+    /*aspect-ratio: 420/240;*/
+    width: 14vw;
     object-fit: cover;
+}
+
+.renderCard {
+    background-color: #312B47 !important;
+}
+
+.selector-box {
+    min-height: 70vh !important;
+}
+
+@media only screen and (orientation: portrait) and (max-device-width: 389px){
+    .selector-box {
+        min-height: 35vh !important;
+    }
+}
+@media only screen and (orientation: portrait) and (min-device-width: 390px) and (max-device-width: 494px) {
+    .selector-box {
+        min-height: 40vh !important;
+    }
+}
+@media only screen and (orientation: portrait) and (min-device-width: 495px) and (max-device-width: 519px) {
+	.selector-box {
+        min-height: 43vh !important;
+    }
+}
+
+@media only screen and (orientation: portrait) and (min-device-width: 520px) and (max-device-width: 700px) {
+	.selector-box {
+        min-height: 46vh !important;
+    }
+}
+
+@media only screen and (orientation: portrait) and (min-device-width: 701px) and (max-device-width: 800px) {
+	.selector-box {
+        min-height: 55vh !important;
+    }
 }

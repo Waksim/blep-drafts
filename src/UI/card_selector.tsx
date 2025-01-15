@@ -1,7 +1,8 @@
 import './card_selector.css'
-import { Card, CharacterCard, GIResonance, GITag } from "../card_database/card";
-import { CardDatabase } from "../card_database/card_database";
-import { CardButton } from "./card_button";
+import {Card, CharacterCard, GIResonance, GITag} from "../card_database/card";
+import {CardDatabase} from "../card_database/card_database";
+import {CardButton} from "./card_button";
+import Row from 'react-bootstrap/Row';
 
 export interface CardSelectorProps {
     deck_characters: CharacterCard[]
@@ -11,10 +12,12 @@ export interface CardSelectorProps {
 
 const database = new CardDatabase()
 
+
 export function CardSelector({deck_characters, deck_cards, addCard}: CardSelectorProps) {
     // Check if it is the last card
     let options: Card[]
     let title = "Pick an action card:";
+
     if (deck_cards.length == 29) {
         options = GetArcaneCardOptions(database)
         title = "Pick your arcane:";
@@ -30,17 +33,20 @@ export function CardSelector({deck_characters, deck_cards, addCard}: CardSelecto
     return (
         <div className="selector-box">
             <label className="selector-title">{title}</label>
+            {/*<label className="selector-title">{title}</label>*/}
             <label className="selector-progress">{deck_cards.length}/30 cards chosen</label>
             <div className="selector-cards">
-                <CardButton key={`sel-${options[0].id}`} card={options[0]} addCard={addCard} />
-                <CardButton key={`sel-${options[1].id}`} card={options[1]} addCard={addCard} />
-                <CardButton key={`sel-${options[2].id}`} card={options[2]} addCard={addCard} />
+                <Row xs={3} md={3} className="g-3">
+                    <CardButton key={`sel-${options[0].id}`} card={options[0]} addCard={addCard}/>
+                    <CardButton key={`sel-${options[1].id}`} card={options[1]} addCard={addCard}/>
+                    <CardButton key={`sel-${options[2].id}`} card={options[2]} addCard={addCard}/>
+                </Row>
             </div>
         </div>
     )
 }
 
-function GetArcaneCardOptions(database: CardDatabase) : Card[] {
+function GetArcaneCardOptions(database: CardDatabase): Card[] {
     let pool = [...database.GetArcaneCards()]
 
     // Remove down to 3
@@ -52,13 +58,13 @@ function GetArcaneCardOptions(database: CardDatabase) : Card[] {
     return pool
 }
 
-function GetActionCardOptions(database: CardDatabase, deck_characters: CharacterCard[], deck_cards: Card[]) : Card[] {
+function GetActionCardOptions(database: CardDatabase, deck_characters: CharacterCard[], deck_cards: Card[]): Card[] {
     const initialPool = GetActionCardPool(database, deck_characters)
     const maxCards: Card[] = []
 
     // Check if we've reached the max for any cards
     for (let i = 0; i < deck_cards.length - 1; ++i) {
-        if (deck_cards[i].id === deck_cards[i+1].id) {
+        if (deck_cards[i].id === deck_cards[i + 1].id) {
             maxCards.push(deck_cards[i])
         }
     }
@@ -84,7 +90,7 @@ function GetActionCardOptions(database: CardDatabase, deck_characters: Character
     return results
 }
 
-function GetActionCardPool(database: CardDatabase, deck_characters: CharacterCard[]) : Card[] {
+function GetActionCardPool(database: CardDatabase, deck_characters: CharacterCard[]): Card[] {
     // Get talents of characters
     const talents = deck_characters.map((char) => database.GetTalent(char))
     const resonances = GetResonanceCards(database, deck_characters)
@@ -105,8 +111,7 @@ function GetActionCardPool(database: CardDatabase, deck_characters: CharacterCar
 function GetResonanceCards(database: CardDatabase, deck_characters: CharacterCard[]): readonly Card[] {
     let result = GIResonance.None
 
-    if (deck_characters.length == 1)
-    {
+    if (deck_characters.length == 1) {
         return []
     }
 
@@ -124,7 +129,7 @@ function GetResonanceCards(database: CardDatabase, deck_characters: CharacterCar
 
 function GetWeaponCards(database: CardDatabase, deck_characters: CharacterCard[]): readonly Card[] {
     let weapons = GITag.None
-    
+
     deck_characters.forEach((char) => weapons |= char.weapon)
 
     return database.GetMatchingWeapons(weapons)
@@ -132,13 +137,13 @@ function GetWeaponCards(database: CardDatabase, deck_characters: CharacterCard[]
 
 function GetElementalCards(database: CardDatabase, deck_characters: CharacterCard[]): readonly Card[] {
     let elements = GIResonance.None
-    
+
     deck_characters.forEach((char) => elements |= char.element)
 
     return database.GetElementalCards(elements)
 }
 
-function GetCharacterOptions(database: CardDatabase, deck_characters: CharacterCard[]) : Card[] {
+function GetCharacterOptions(database: CardDatabase, deck_characters: CharacterCard[]): Card[] {
     let pool = GetCharacterPool(database, deck_characters)
 
     // Remove characters already in the deck
@@ -159,16 +164,13 @@ function GetCharacterOptions(database: CardDatabase, deck_characters: CharacterC
     return results
 }
 
-function GetCharacterPool(database: CardDatabase, deck_characters: CharacterCard[]) : readonly CharacterCard[] {
+function GetCharacterPool(database: CardDatabase, deck_characters: CharacterCard[]): readonly CharacterCard[] {
     const result = database.GetAllCharacters()
 
     // Check if we have to characters with matching elements
-    if (deck_characters.length == 2 && deck_characters[0].element === deck_characters[1].element)
-    {
+    if (deck_characters.length == 2 && deck_characters[0].element === deck_characters[1].element) {
         return result.filter((card) => card.element !== deck_characters[0].element)
-    }
-    else
-    {
+    } else {
         return result
     }
 }
